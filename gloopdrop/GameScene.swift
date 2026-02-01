@@ -48,6 +48,10 @@ class GameScene: SKScene {
       collectible.position = CGPoint(x: player.position.x,
                                      y: player.position.y * 2.5)
       addChild(collectible)
+      
+      collectible.drop(dropSpeed: TimeInterval(1.0),
+                       floorLevel: player.frame.minY )
+      
     }
 
     

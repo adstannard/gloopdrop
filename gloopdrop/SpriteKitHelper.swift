@@ -8,7 +8,7 @@
 import Foundation
 import SpriteKit
 
-// MARK: - SPRITEKIT EXTENSIONS
+// MARK: - SPRITEKIT HELPERS
 
 // Set up shared z-positions
 enum Layer: CGFloat {
@@ -17,7 +17,10 @@ enum Layer: CGFloat {
     case player
 }
 
+// MARK: - SPRITEKIT EXTENSIONS
+
 extension SKSpriteNode {
+    
     // Used to load texture arrays for animations
     func loadTextures(atlas: String, prefix: String,
                       startsAt: Int, stopsAt: Int) -> [SKTexture] {
@@ -53,5 +56,4 @@ extension SKSpriteNode {
             }
         }
     }
-    
 }

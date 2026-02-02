@@ -34,7 +34,9 @@ class GameScene: SKScene {
     player.setupConstraints(floor: foreground.frame.maxY)
     addChild(player)
     player.walk()
-      spawnGloop()
+      
+    // Set up game
+    spawnMultipleGloops()
   }
   
   // MARK: - GAME FUNCTIONS
@@ -43,9 +45,29 @@ class GameScene: SKScene {
   /*                 GAME FUNCTIONS STARTS HERE                   */
   /* ############################################################ */
   
+  func spawnMultipleGloops() {
+        //Set up repeating action
+      let wait = SKAction.wait(forDuration: TimeInterval(1.0))
+      let spawn = SKAction.run { [unowned self] in self.spawnGloop()}
+      
+      let sequence = SKAction.sequence([wait, spawn])
+      let repeatAction = SKAction.repeat(sequence, count: 10)
+      
+      // Run action
+      run(repeatAction, withKey: "gloop")
+      
+    }
+    
   func spawnGloop() {
       let collectible = Collectible(collectibleType: CollectibleType.gloop)
-      collectible.position = CGPoint(x: player.position.x,
+      
+      // Set random position
+      let margin = collectible.size.width * 2
+      let dropRange = SKRange(lowerLimit: frame.minX + margin,
+                              upperLimit: frame.maxX - margin)
+      let randomX = CGFloat.random(in: dropRange.lowerLimit...dropRange.upperLimit)
+      
+      collectible.position = CGPoint(x: randomX,
                                      y: player.position.y * 2.5)
       addChild(collectible)
       
